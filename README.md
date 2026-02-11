@@ -55,17 +55,22 @@ Created a new security group with the following inbound rules:
 
 ---
 
-### Step 4: Connect to EC2 via SSH
+### Step 4: Connect to EC2 via SSH (Using MobaXterm)
 
-```bash
-chmod 400 cloud-key.pem
+- Opened MobaXterm
+- Selected SSH session
+- Entered Public IPv4 address
+- Username: ubuntu
+- Uploaded cloud-key.pem file under Advanced SSH settings
+
+Successfully connected to the EC2 Ubuntu instance.
+
+Note: Connection can also be done using the following SSH command in Linux/macOS:
+
 ssh -i cloud-key.pem ubuntu@<Public-IP>
-```
 
-**Troubleshooting Checks Performed:**
-- Verified port 22 in security group
-- Confirmed correct key pair
-- Checked public IPv4 assignment
+![EC2 Instance Running on Mobxtreme and created a file](Screenshots/file.png)
+
 
 ---
 
@@ -93,6 +98,8 @@ chmod 600 test.txt
 ls -l
 ```
 
+![EC2 Instance Running on Mobxtreme and basic commands executed](Screenshots/Mobax.png)
+
 ---
 
 ### Step 6: Install & Configure Apache Web Server
@@ -116,8 +123,10 @@ sudo nano index.html
 ```
 
 ```html
-<h1>Hello from Cloud L1 Project</h1>
+<h1>Welcome to website hosted on AWS...</h1>
 ```
+
+![Website ran on EC2 instance](Screenshots/Website.png)
 
 ---
 
