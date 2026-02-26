@@ -1,157 +1,201 @@
-# AWS-EC2-Linux-Support-Troubleshooting
+# 🛠️ AWS EC2 Linux Support Lab
 
-## 📌 Project Overview
-This project demonstrates **core AWS Cloud + Linux administration skills** expected from a **Cloud / AWS L1 Support Engineer**.  
-The objective was to deploy a Linux server on AWS EC2, host a static website using a web server, and perform **real-world troubleshooting** by intentionally breaking and fixing configurations.
+A hands-on AWS + Linux administration project focused on simulating
+real-world Cloud / L1 Support Engineer responsibilities.
 
-This hands-on project covers EC2 provisioning, SSH access, Linux user & permission management, web server setup, security group configuration, and incident troubleshooting — all of which are frequently tested in interviews.
+This project goes beyond simple deployment --- it demonstrates
+provisioning, configuration, troubleshooting, and cost awareness in a
+live AWS environment.
 
----
+------------------------------------------------------------------------
 
-## 🛠️ Technologies & Services Used
-- AWS EC2 (Elastic Compute Cloud)
-- Ubuntu Server 22.04 LTS
-- Apache HTTP Server
-- Linux (Ubuntu CLI)
-- SSH (Key-based authentication)
-- AWS Security Groups (Firewall rules)
-- HTML & CSS (Static Website)
+## 📦 Technologies
 
----
+-   AWS EC2
+-   Ubuntu Server 22.04 LTS
+-   Apache HTTP Server
+-   Linux CLI
+-   SSH (Key-based Authentication)
+-   AWS Security Groups
+-   HTML & CSS
 
-## 🌍 AWS Region
-- Asia Pacific (Mumbai) – ap-south-1
+------------------------------------------------------------------------
 
----
+## 🦄 Features
 
-## 🚀 Step-by-Step Implementation
+Here's what this lab demonstrates:
 
-### Step 1: AWS Login & Region Selection
-- Logged in to AWS Management Console
-- Selected region: **ap-south-1 (Mumbai)**
+-   **EC2 Provisioning**: Launching and configuring a Linux server in
+    AWS.
+-   **Secure SSH Access**: Connecting using RSA key-pair authentication.
+-   **Linux Administration**: Managing users, permissions, and system
+    updates.
+-   **Web Server Hosting**: Installing and configuring Apache.
+-   **Firewall Configuration**: Managing inbound rules using Security
+    Groups.
+-   **Live Troubleshooting**: Intentionally breaking and restoring
+    connectivity.
+-   **Cost Awareness**: Proper instance shutdown after completion.
 
----
+------------------------------------------------------------------------
 
-### Step 2: EC2 Instance Creation
-**Configuration:**
-- Instance Name: `cloud-l1-ec2`
-- AMI: Ubuntu Server 22.04 LTS (Free Tier Eligible)
-- Instance Type: `t2.micro`
-- Key Pair:
-  - Name: `cloud-key`
-  - Type: RSA (.pem file)
+## 🏗️ Architecture
 
----
+User (Browser)\
+↓\
+Public IP\
+↓\
+AWS Security Group (Firewall)\
+↓\
+EC2 Instance (Ubuntu 22.04)\
+↓\
+Apache Web Server\
+↓\
+Static HTML Website
 
-### Step 3: Network & Security Group Configuration
-Created a new security group with the following inbound rules:
+This is a simple Infrastructure-as-a-Service (IaaS) setup demonstrating
+core cloud fundamentals.
 
-| Type | Port | Source |
-|----|----|----|
-| SSH | 22 | My IP |
-| HTTP | 80 | Anywhere |
+------------------------------------------------------------------------
 
-⚠️ HTTPS (443) was intentionally not added to keep the setup minimal.
+## 🚀 What You Can Do
 
----
+After completing this lab, you can:
 
-### Step 4: Connect to EC2 via SSH (Using MobaXterm)
+-   Launch and configure EC2 instances
+-   Connect securely using SSH
+-   Install and manage Apache web servers
+-   Configure Linux users and permissions
+-   Manage firewall rules via Security Groups
+-   Troubleshoot network-level access issues
 
-- Opened MobaXterm
-- Selected SSH session
-- Entered Public IPv4 address
-- Username: ubuntu
-- Uploaded cloud-key.pem file under Advanced SSH settings
+------------------------------------------------------------------------
 
-Successfully connected to the EC2 Ubuntu instance.
+## 👩🏽‍🍳 The Process
 
-Note: Connection can also be done using the following SSH command in Linux/macOS:
+I started by launching an EC2 instance using Ubuntu Server 22.04 LTS in
+the Mumbai region (ap-south-1).\
+A key pair was generated for secure SSH authentication.
 
-ssh -i cloud-key.pem ubuntu@<Public-IP>
+Next, I configured a security group allowing:
 
-![EC2 Instance Running on Mobxtreme and created a file](Screenshots/file.png)
+-   SSH (Port 22) from my IP\
+-   HTTP (Port 80) from anywhere
 
+After connecting via SSH, I performed system updates and basic Linux
+command verification.
 
----
+Then, I installed Apache using:
 
-### Step 5: Linux Basics & User Management
-
-**Basic Commands Executed:**
-```bash
-pwd
-ls
-whoami
-sudo apt update
+``` bash
+sudo apt install apache2 -y
 ```
 
-**User Management:**
-```bash
+After starting the Apache service, I verified access through the public
+IP address.
+
+To simulate a real-world support issue, I removed the HTTP (Port 80)
+inbound rule from the security group.
+
+Result: The website became inaccessible.
+
+Fix: Re-added the HTTP rule and verified restoration immediately.
+
+This reinforced the understanding of how firewall misconfigurations
+impact production systems.
+
+------------------------------------------------------------------------
+
+## 🛠️ Troubleshooting Faced
+
+### ❌ Website Not Accessible
+
+Cause: - HTTP (Port 80) removed from Security Group
+
+Fix: - Re-added HTTP inbound rule - Confirmed Apache service was running
+
+------------------------------------------------------------------------
+
+### ❌ Permission & User Management Issues
+
+Commands practiced:
+
+``` bash
 sudo adduser testuser
 sudo passwd testuser
 sudo userdel testuser
+chmod 600 test.txt
 ```
 
-**File Permissions:**
-```bash
-touch test.txt
-chmod 600 test.txt
-ls -l
-```
+This helped strengthen Linux permission fundamentals.
+
+------------------------------------------------------------------------
+
+## 💰 Cost Discipline
+
+-   Used Free Tier eligible `t2.micro`
+-   Stopped instance after completion
+-   Avoided unnecessary billing
+
+Cloud cost management is part of real-world responsibility.
+
+------------------------------------------------------------------------
+
+## 📚 What I Learned
+
+### 🖥️ EC2 Fundamentals
+
+-   Instance provisioning
+-   AMI selection
+-   Key-pair authentication
+-   Security Group configuration
+
+### 🐧 Linux Administration
+
+-   User creation & deletion
+-   File permissions
+-   Service management using `systemctl`
+-   Package installation with `apt`
+
+### 🌐 Networking Basics
+
+-   Role of Security Groups as firewall
+-   Difference between network issues vs server issues
+-   Importance of verifying services before debugging network
+
+### 🧠 Support Mindset
+
+Instead of randomly changing settings, I learned to:
+
+-   Identify the failure point
+-   Validate configurations step-by-step
+-   Restore services systematically
+
+------------------------------------------------------------------------
+
+## 🎯 How It Can Be Improved
+
+-   Add HTTPS with SSL (Let's Encrypt)
+-   Configure Nginx instead of Apache
+-   Use Elastic IP
+-   Automate deployment using User Data script
+-   Add monitoring using CloudWatch
+
+------------------------------------------------------------------------
+
+## 🏁 Final Result
+
+A fully functional Linux web server deployed on AWS EC2, with real-world
+troubleshooting experience that aligns with Cloud / AWS L1 Support
+Engineer expectations.
+
+This project strengthens foundational cloud infrastructure skills and
+prepares for more advanced DevOps and Cloud Engineering roles.
+
+------------------------------------------------------------------------
+
+## 🏁 Screenshots
 
 ![EC2 Instance Running on Mobxtreme and basic commands executed](Screenshots/Mobax.png)
 
----
-
-### Step 6: Install & Configure Apache Web Server
-```bash
-sudo apt install apache2 -y
-sudo systemctl start apache2
-sudo systemctl status apache2
-```
-
-Verify using:
-```
-http://<Public-IP>
-```
-
----
-
-### Step 7: Host Static HTML/CSS Website
-```bash
-cd /var/www/html
-sudo nano index.html
-```
-
-```html
-<h1>Welcome to website hosted on AWS...</h1>
-```
-
 ![Website ran on EC2 instance](Screenshots/Website.png)
-
----
-
-### Step 8: Real-World Troubleshooting (Key Learning)
-
-❌ **Issue Simulation**
-- Removed HTTP (Port 80) rule from Security Group
-- Website became inaccessible
-
-✅ **Fix**
-- Re-added HTTP rule
-- Website restored immediately
-
----
-
-### Step 9: Cost Management
-- EC2 instance was stopped after completion to avoid charges
-
----
-
-## 🎯 Key Skills Demonstrated
-- AWS EC2 provisioning & management
-- Linux system administration
-- SSH authentication
-- Apache web server hosting
-- Security Group configuration
-- L1-level troubleshooting
-- Networking fundamentals
