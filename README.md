@@ -194,7 +194,7 @@ prepares for more advanced DevOps and Cloud Engineering roles.
 
 ------------------------------------------------------------------------
 
-## 🏁 Screenshots
+## 📸 Screenshots
 
 ![EC2 Instance Running on Mobxtreme and basic commands executed](Screenshots/Mobax.png)
 
